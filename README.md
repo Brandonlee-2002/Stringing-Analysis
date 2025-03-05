@@ -11,6 +11,7 @@ This project explores trends in badminton racket and string preferences, analyzi
 
 ### 🔑 Key Takeaways
 - AX88D Pro (including the 3rd Gen) is the most popular because it is marketed as one of the best doubles head-heavy rackets. 
+- Most players prefer BG66UM because it is a high repulsion string. High repulsion means power inexchange for durability. The string is very thin as a result and pop quicker than most strings, especially strung at max recommended tension.
 - 
 
 
