@@ -3,7 +3,7 @@
 ## 📌 Project Overview
 This project explores trends in badminton racket and string preferences, analyzing string tension distributions and detecting outliers.
 
-## 📊 Key Analysis
+## 📊 Quantitative Analysis
 - Most popular rackets and strings
 - Average string tension per racket
 - Outlier detection using IQR method
