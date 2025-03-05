@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load dataset (replace 'your_data.csv' with actual file)
-df = pd.read_csv("your_data.csv")
+df = pd.read_csv("/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/data/RestringLog.csv")
 
 # 1. Basic Descriptive Statistics
 print("Unique Players:", df['NameId'].nunique())
