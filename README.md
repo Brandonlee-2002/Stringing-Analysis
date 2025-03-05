@@ -22,6 +22,9 @@ This project explores trends in badminton racket and string preferences, analyzi
 ### **Most Popular Rackets**
 ![racket chart](images/top_rackets.png)
 
+### **Most Popular Strings**
+![string chart](images/top_strings.png)
+
 ### **String Tension Distribution**
 ![tension chart](images/tension_distribution.png)
 
