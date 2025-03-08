@@ -57,16 +57,16 @@ Unique Strings: 13
 
 Top Rackets: <br>
  Racket <br>
-AX88D Pro     45
-AX88D         36
-AX100ZZ       26
-Arc 11 Pro    20
-NF800 Pro     18
-AX88D Pro     10
-NF800         10
-Assorted      10
-Z Strike       8
-AX77 Pro       8
+AX88D Pro     45 <br>
+AX88D         36 <br>
+AX100ZZ       26 <br>
+Arc 11 Pro    20 <br>
+NF800 Pro     18 <br>
+AX88D Pro     10 <br>
+NF800         10 <br>
+Assorted      10 <br>
+Z Strike       8 <br>
+AX77 Pro       8 <br>
 Name: count, dtype: int64
 
 Top Strings:
