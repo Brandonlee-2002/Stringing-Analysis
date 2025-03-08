@@ -69,18 +69,18 @@ Z Strike       8 <br>
 AX77 Pro       8 <br>
 Name: count, dtype: int64
 
-Top Strings:
- String
-BG66U       73
-NBG95       56
-BG65Ti      37
-BG80        19
-Gosen       17
-BG65         8
-NBG98        7
-Exbolt65     5
-Ex65         4
-AB           3
+Top Strings: <br>
+ String <br>
+BG66U       73 <br>
+NBG95       56 <br>
+BG65Ti      37 <br>
+BG80        19 <br>
+Gosen       17 <br>
+BG65         8 <br>
+NBG98        7 <br>
+Exbolt65     5 <br>
+Ex65         4 <br>
+AB           3 <br>
 Name: count, dtype: int64
 
 Average Tension by Racket:
