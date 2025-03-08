@@ -83,18 +83,18 @@ Ex65         4 <br>
 AB           3 <br>
 Name: count, dtype: int64
 
-Average Tension by Racket:
- Racket
-Ryuga II       29.000000
-Z Strike       28.875000
-AX100ZZ        28.423077
-AX77 Pro       28.375000
-AX99 Pro       28.200000
-AX88D          28.027778
-Vanguard 11    28.000000
-Drive9X        28.000000
-NR800          28.000000
-V11            28.000000
+Average Tension by Racket: <br>
+ Racket <br>
+Ryuga II       29.000000 <br>
+Z Strike       28.875000 <br>
+AX100ZZ        28.423077 <br>
+AX77 Pro       28.375000 <br>
+AX99 Pro       28.200000 <br>
+AX88D          28.027778 <br>
+Vanguard 11    28.000000 <br>
+Drive9X        28.000000 <br>
+NR800          28.000000 <br>
+V11            28.000000 <br>
 Name: Tension, dtype: float64
 
 
