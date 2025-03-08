@@ -56,7 +56,7 @@ Unique Rackets: 30
 Unique Strings: 13
 
 Top Rackets: <br>
- Racket
+ Racket <br>
 AX88D Pro     45
 AX88D         36
 AX100ZZ       26
