@@ -55,7 +55,7 @@ Unique Players: 36
 Unique Rackets: 30
 Unique Strings: 13
 
-Top Rackets:
+Top Rackets: <br>
  Racket
 AX88D Pro     45
 AX88D         36
