@@ -51,50 +51,50 @@ This project explores trends in badminton racket and string preferences, analyzi
 ![boxplot](images/boxplot_tension.png)
 
 ### **Output**
-Unique Players: 36
-Unique Rackets: 30
-Unique Strings: 13
+Unique Players: 38 <br>
+Unique Rackets: 31  
+Unique Strings: 11  
 
-Top Rackets: <br>
- Racket <br>
-AX88D Pro     45 <br>
-AX88D         36 <br>
-AX100ZZ       26 <br>
-Arc 11 Pro    20 <br>
-NF800 Pro     18 <br>
-AX88D Pro     10 <br>
-NF800         10 <br>
-Assorted      10 <br>
-Z Strike       8 <br>
-AX77 Pro       8 <br>
+Top Rackets:
+ Racket
+AX88D Pro     46
+AX88D         38
+AX100ZZ       28
+Arc 11 Pro    21
+NF800 Pro     18
+NF800         10
+AX88D Pro     10
+Assorted      10
+Z Strike       8
+AX77 Pro       8
 Name: count, dtype: int64
 
-Top Strings: <br>
- String <br>
-BG66U       73 <br>
-NBG95       56 <br>
-BG65Ti      37 <br>
-BG80        19 <br>
-Gosen       17 <br>
-BG65         8 <br>
-NBG98        7 <br>
-Exbolt65     5 <br>
-Ex65         4 <br>
-AB           3 <br>
+Top Strings:
+ String
+BG66U     75
+NBG95     56
+BG65Ti    41
+BG80      20
+Gosen     17
+Ex65       9
+BG65       8
+NBG98      7
+AB         3
+Ex68       3
 Name: count, dtype: int64
 
-Average Tension by Racket: <br>
- Racket <br>
-Ryuga II       29.000000 <br>
-Z Strike       28.875000 <br>
-AX100ZZ        28.423077 <br>
-AX77 Pro       28.375000 <br>
-AX99 Pro       28.200000 <br>
-AX88D          28.027778 <br>
-Vanguard 11    28.000000 <br>
-Drive9X        28.000000 <br>
-NR800          28.000000 <br>
-V11            28.000000 <br>
+Average Tension by Racket:
+ Racket
+Ryuga II       29.000000
+Z Strike       28.875000
+AX100ZZ        28.464286
+AX77 Pro       28.375000
+AX99 Pro       28.200000
+AX88D          28.078947
+Vanguard 11    28.000000
+V11            28.000000
+Drive9X        28.000000
+NR800          28.000000
 Name: Tension, dtype: float64
 
 
