@@ -82,6 +82,12 @@ outliers = df[(df["Tension"] < lower_bound) | (df["Tension"] > upper_bound)]
 summary_lines.append(f"\n## ⚠️ Tension Outliers\n")
 summary_lines.append(f"Total Outliers Detected: **{len(outliers)}**")
 
-with open("summary.md", "w") as f:
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+ROOT_DIR = os.path.dirname(SCRIPT_DIR)
+
+summary_path = os.path.join(ROOT_DIR, "summary.md")
+
+with open("../summary.md", "w") as f:
     f.write("\n".join(summary_lines))
 
