@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pandas.core.algorithms import nunique_ints
 
-# Ensures output directories do exist in project folder
-os.makedirs("images", exist_ok=True)
 
 # Load dataset (replace 'your_data.csv' with actual file)
 df = pd.read_csv("/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/data/RestringLog.csv")
