@@ -50,7 +50,7 @@ This project explores trends in badminton racket and string preferences, analyzi
 ### **Boxplot**
 ![boxplot](images/boxplot_tension.png)
 
-To see the data in a table, click this link here: [summary.md](/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/scripts/summary.md)
+To see the data in a table, click this link here: [summary.md](./summary.md)
 
 ## 🔧 Installation
 To run this project locally:
