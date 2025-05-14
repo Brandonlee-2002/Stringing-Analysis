@@ -1,25 +1,42 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pandas.core.algorithms import nunique_ints
+
+# Ensures output directories do exist in project folder
+os.makedirs("images", exist_ok=True)
 
 # Load dataset (replace 'your_data.csv' with actual file)
 df = pd.read_csv("/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/data/RestringLog.csv")
 
+# Start of Markdown Summary
+summary_lines = []
+
 # 1. Basic Descriptive Statistics
-print("Unique Players:", df['NameId'].nunique())
-print("Unique Rackets:", df['RacketId'].nunique())
-print("Unique Strings:", df['StringId'].nunique())
+unique_players = df['NameID'].nunique()
+unique_rackets = df['RacketID'].nunique()
+unique_strings = df['StringID'].nunique()
+
+summary_lines.append(f"#Stringing Analysis Summary\n")
+summary_lines.append(f"**Unique Players:** {unique_players}")
+summary_lines.append(f"**Unique Rackets:** {unique_rackets}")
+summary_lines.append(f"**Unique Strings:** {unique_strings}\n")
 
 # Most popular rackets and strings
 top_rackets = df['Racket'].value_counts().head(10)
 top_strings = df['String'].value_counts().head(10)
 
-print("\nTop Rackets:\n", top_rackets)
-print("\nTop Strings:\n", top_strings)
+summary_lines.append("## 🏸 Top 10 Most Used Rackets\n")
+summary_lines.append(top_rackets.to_markdown())
+
+summary_lines.append(("## 🧵Top 10 Most Used Strings\n"))
+summary_lines.append(top_strings.to_markdown())
 
 # Average string tension per racket
 avg_tension_racket = df.groupby("Racket")["Tension"].mean().sort_values(ascending=False)
-print("\nAverage Tension by Racket:\n", avg_tension_racket.head(10))
+summary_lines.append("\n## 📈 Average String Tension by Racket (Top 10)\n")
+summary_lines.append(avg_tension_racket.head(10).to_frame().to_markdown())
 
 # 2. Visualizations
 
@@ -64,5 +81,9 @@ lower_bound = Q1 - 1.5 * IQR
 upper_bound = Q3 + 1.5 * IQR
 
 outliers = df[(df["Tension"] < lower_bound) | (df["Tension"] > upper_bound)]
-print("\nOutliers in String Tension:\n", outliers)
+summary_lines.append(f"\n## ⚠️ Tension Outliers\n")
+summary_lines.append(f"Total Outliers Detected: **{len(outliers)}**")
+
+with open("summary.md", "w") as f:
+    f.write("\n".join(summary_lines))
 
