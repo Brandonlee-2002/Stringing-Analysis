@@ -24,7 +24,7 @@ jobs:
 
       - name: Run analysis script
         run: |
-          python analyze.py
+          data_analysis.py
 
       - name: Commit updated graphs
         run: |
