@@ -1,6 +1,6 @@
 #Stringing Analysis Summary
 
-**Unique Players:** 46
+**Unique Players:** 47
 **Unique Rackets:** 36
 **Unique Strings:** 11
 
@@ -10,10 +10,10 @@
 |:-----------|--------:|
 | AX88D Pro  |      50 |
 | AX88D      |      42 |
-| AX100ZZ    |      34 |
-| Arc 11 Pro |      23 |
+| AX100ZZ    |      36 |
+| Arc 11 Pro |      24 |
 | NF800 Pro  |      18 |
-| NF800      |      11 |
+| NF800      |      12 |
 | Assorted   |      11 |
 | AX99       |      11 |
 | AX88D Pro  |      10 |
@@ -25,12 +25,12 @@
 | BG66U    |      80 |
 | NBG95    |      60 |
 | BG65Ti   |      52 |
-| BG80     |      21 |
+| BG80     |      22 |
 | Gosen    |      17 |
-| Ex65     |      15 |
+| Ex65     |      16 |
 | BG65     |      14 |
 | NBG98    |       7 |
-| AB       |       4 |
+| AB       |       5 |
 | Ex68     |       3 |
 
 ## 📈 Average String Tension by Racket (Top 10)
@@ -39,7 +39,7 @@
 |:----------------|----------:|
 | Ryuga II        |   29      |
 | Z Strike        |   28.875  |
-| AX100ZZ         |   28.3529 |
+| AX100ZZ         |   28.3333 |
 | AX99 Pro        |   28.2    |
 | AX88D           |   28.1667 |
 | AuraSpeed 90K M |   28      |
