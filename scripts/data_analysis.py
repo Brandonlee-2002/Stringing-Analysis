@@ -69,7 +69,7 @@ plt.figure(figsize=(8,5))
 sns.boxplot(x=df["Tension"])
 plt.xlabel("String Tension (lbs)")
 plt.title("Boxplot of String Tension")
-plt.savefig("/images/boxplot_tension.png")
+plt.savefig("images/boxplot_tension.png")
 
 # Identify outliers
 Q1 = df["Tension"].quantile(0.25)
