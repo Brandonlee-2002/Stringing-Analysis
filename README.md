@@ -1,7 +1,7 @@
 # Badminton Racket Restringing Analysis
 
 ## 📌 Project Overview
-This project explores trends in badminton racket and string preferences, analyzing string tension distributions and detecting outliers.
+This project analyzes trends in badminton racket and string preferences by examining string tension distributions, usage patterns, and outliers. The analysis is automatically updated through a GitHub Actions workflow whenever a new .csv file is pushed to the repository.
 
 ## 📊 Quantitative Analysis
 - Most popular rackets and strings
@@ -61,4 +61,3 @@ pip install -r requirements.txt
 jupyter notebook
 ```
 
-Test
