@@ -6,7 +6,7 @@ from pandas.core.algorithms import nunique_ints
 
 
 # Load dataset (replace 'your_data.csv' with actual file)
-df = pd.read_csv("/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/data/RestringLog.csv")
+df = pd.read_csv("data/RestringLog.csv")
 
 # Start of Markdown Summary
 summary_lines = []
