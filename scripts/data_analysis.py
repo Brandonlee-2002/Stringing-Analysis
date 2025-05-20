@@ -44,7 +44,7 @@ sns.histplot(df["Tension"], bins=20, kde=True)
 plt.xlabel("String Tension (lbs)")
 plt.ylabel("Frequency")
 plt.title("Distribution of String Tension")
-plt.savefig("/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/images/tension_distribution.png")
+plt.savefig("images/tension_distribution.png")
 
 # Top Racket Usage
 plt.figure(figsize=(10,5))
@@ -53,7 +53,7 @@ plt.xticks(rotation=45)
 plt.xlabel("Racket")
 plt.ylabel("Count")
 plt.title("Top 10 Most Used Rackets")
-plt.savefig("/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/images/top_rackets.png")
+plt.savefig("images/top_rackets.png")
 
 # Top String Usage
 plt.figure(figsize=(10,5))
@@ -62,14 +62,14 @@ plt.xticks(rotation=45)
 plt.xlabel("String")
 plt.ylabel("Count")
 plt.title("Top 10 Most Used Strings")
-plt.savefig("/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/images/top_strings.png")
+plt.savefig("images/top_strings.png")
 
 # 3. Outlier Detection (Boxplot)
 plt.figure(figsize=(8,5))
 sns.boxplot(x=df["Tension"])
 plt.xlabel("String Tension (lbs)")
 plt.title("Boxplot of String Tension")
-plt.savefig("/Users/brandonlee/PycharmProjects/Badminton_Racket_Analysis/images/boxplot_tension.png")
+plt.savefig("/images/boxplot_tension.png")
 
 # Identify outliers
 Q1 = df["Tension"].quantile(0.25)
