@@ -154,7 +154,7 @@ top_rackets_summary = (
     .groupby(["Racket", "Gender"])
     .size()
     .unstack(fill_value=0)
-    .sort_values(by=top_rackets_overall, ascending=False)
+    .loc[top_rackets_overall]
 )
 summary_lines.append(top_rackets_summary.to_markdown())
 
@@ -165,7 +165,8 @@ top_strings_summary = (
     .groupby(["String", "Gender"])
     .size()
     .unstack(fill_value=0)
-    .sort_values(by=top_strings_overall, ascending=False)
+    .loc[top_rackets_overall]
+
 )
 summary_lines.append(top_strings_summary.to_markdown())
 
