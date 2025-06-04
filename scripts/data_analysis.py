@@ -145,6 +145,35 @@ if "Gender" in df.columns:
     plt.savefig("images/gender_comparison/top_strings_by_gender.png")
     plt.close()
 
+summary_lines.append("\n## 👥 Gender-Based Comparison Summary")
+
+# Top 5 Rackets by Gender (table format)
+summary_lines.append("### 🏸 Top 5 Rackets by Gender")
+top_rackets_summary = (
+    df[df["Racket"].isin(top_rackets_overall)]
+    .groupby(["Racket", "Gender"])
+    .size()
+    .unstack(fill_value=0)
+    .sort_values(by=top_rackets_overall, ascending=False)
+)
+summary_lines.append(top_rackets_summary.to_markdown())
+
+# Top 5 Strings by Gender (table format)
+summary_lines.append("### 🧵 Top 5 Strings by Gender")
+top_strings_summary = (
+    df[df["String"].isin(top_strings_overall)]
+    .groupby(["String", "Gender"])
+    .size()
+    .unstack(fill_value=0)
+    .sort_values(by=top_strings_overall, ascending=False)
+)
+summary_lines.append(top_strings_summary.to_markdown())
+
+# Average Tension by Gender
+summary_lines.append("### 📏 Average Tension by Gender")
+avg_tension_gender = df.groupby("Gender")["Tension"].mean().round(2)
+summary_lines.append(avg_tension_gender.to_frame(name="Average Tension").to_markdown())
+
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 

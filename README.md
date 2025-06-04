@@ -50,6 +50,12 @@ This project analyzes trends in badminton racket and string preferences by exami
 ### **Boxplot**
 ![boxplot](images/boxplot_tension.png)
 
+### **Gender Comparison**
+![racket comparison by gender](images/gender_comparison/top_rackets_by_gender.png)
+![tension comparison by gender](images/gender_comparison/tension_distribution_by_gender.png)
+![string comparison by gender](images/gender_comparison/top_strings_by_gender.png)
+
+
 To see the data in a table, click this link here: [summary.md](summary.md)
 
 ## 🔧 Installation
