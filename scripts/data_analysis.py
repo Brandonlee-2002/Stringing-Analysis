@@ -5,7 +5,7 @@ import seaborn as sns
 from pandas.core.algorithms import nunique_ints
 
 
-# Load dataset (replace 'your_data.csv' with actual file)
+# Load dataset
 df = pd.read_csv("data/RestringLog.csv")
 
 # Start of Markdown Summary
@@ -81,6 +81,70 @@ upper_bound = Q3 + 1.5 * IQR
 outliers = df[(df["Tension"] < lower_bound) | (df["Tension"] > upper_bound)]
 summary_lines.append(f"\n## ⚠️ Tension Outliers\n")
 summary_lines.append(f"Total Outliers Detected: **{len(outliers)}**")
+
+# 5. Gender Comparison Visualizations
+os.makedirs("images/gender_comparison", exist_ok=True)
+
+# Ensure 'Gender' exists
+if "Gender" in df.columns:
+
+    # Tension Distribution KDE by Gender (Overlayed)
+    plt.figure(figsize=(8, 5))
+    for gender in df["Gender"].dropna().unique():
+        sns.kdeplot(df[df["Gender"] == gender]["Tension"], label=gender, fill=True)
+    plt.xlabel("String Tension (lbs)")
+    plt.ylabel("Density")
+    plt.title("Tension Distribution by Gender")
+    plt.legend()
+    plt.savefig("images/gender_comparison/tension_distribution_by_gender.png")
+    plt.close()
+
+    # Grouped Bar Chart: Top Rackets by Gender
+    top_rackets_gender = (
+        df.groupby(["Gender", "Racket"]).size().reset_index(name="Count")
+    )
+    top_rackets_overall = df["Racket"].value_counts().head(5).index.tolist()
+    top_rackets_gender_filtered = top_rackets_gender[
+        top_rackets_gender["Racket"].isin(top_rackets_overall)
+    ]
+
+    plt.figure(figsize=(10, 6))
+    sns.barplot(
+        data=top_rackets_gender_filtered,
+        x="Racket",
+        y="Count",
+        hue="Gender"
+    )
+    plt.title("Top 5 Rackets Used by Gender")
+    plt.xlabel("Racket")
+    plt.ylabel("Usage Count")
+    plt.legend(title="Gender")
+    plt.savefig("images/gender_comparison/top_rackets_by_gender.png")
+    plt.close()
+
+    # Grouped Bar Chart: Top Strings by Gender
+    top_strings_gender = (
+        df.groupby(["Gender", "String"]).size().reset_index(name="Count")
+    )
+    top_strings_overall = df["String"].value_counts().head(5).index.tolist()
+    top_strings_gender_filtered = top_strings_gender[
+        top_strings_gender["String"].isin(top_strings_overall)
+    ]
+
+    plt.figure(figsize=(10, 6))
+    sns.barplot(
+        data=top_strings_gender_filtered,
+        x="String",
+        y="Count",
+        hue="Gender"
+    )
+    plt.title("Top 5 Strings Used by Gender")
+    plt.xlabel("String")
+    plt.ylabel("Usage Count")
+    plt.legend(title="Gender")
+    plt.savefig("images/gender_comparison/top_strings_by_gender.png")
+    plt.close()
+
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
