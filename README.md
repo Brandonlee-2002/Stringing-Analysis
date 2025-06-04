@@ -12,6 +12,8 @@ This project analyzes trends in badminton racket and string preferences by exami
 ### 🔑 Key Takeaways
 - AX88D Pro (including the 3rd Gen) is the most popular because it is marketed as one of the best doubles head-heavy rackets. 
 - Most players prefer BG66UM because it is a high repulsion string. High repulsion means power in exchange for durability. The string is very thin as a result and pop quicker than most strings, especially strung at max recommended tension.
+- Average tension for female players is around 27 lbs based on the graph. The most obvious peak is at 26, but there is a slightly larger peak at 28 lbs.
+- For male players, the average tension is around 28 lbs based on the graph with a huge peak at 28.
 - Based on the data, most players that I have strung for prefer the 28-29 tension. 
 
 #### 📈 Boxplot
