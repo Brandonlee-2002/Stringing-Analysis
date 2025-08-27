@@ -47,7 +47,7 @@ plt.title("Distribution of String Tension")
 plt.savefig("images/tension_distribution.png")
 
 # Top Racket Usage
-plt.figure(figsize=(10,5))
+plt.figure(figsize=(12,5))
 sns.barplot(x=top_rackets.index, y=top_rackets.values)
 plt.xticks(rotation=45)
 plt.xlabel("Racket")
