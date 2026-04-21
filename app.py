@@ -50,6 +50,10 @@ def load_data() -> pd.DataFrame:
 
     for col in ["Gender", "Racket", "String", "Player"]:
         if col in df.columns:
+        # Handle duplicate columns safely
+            if isinstance(df[col], pd.DataFrame):
+                df[col] = df[col].iloc[:, 0]  # take first column
+        
             df[col] = df[col].astype(str).str.strip()
 
     return df
