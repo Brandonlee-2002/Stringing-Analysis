@@ -13,7 +13,6 @@ st.set_page_config(
 
 @st.cache_data
 def load_data() -> pd.DataFrame:
-    """Load the most likely CSV from the data folder."""
     data_dir = Path("data")
     csv_files = sorted(data_dir.glob("*.csv"))
 
@@ -21,14 +20,15 @@ def load_data() -> pd.DataFrame:
         return pd.DataFrame()
 
     df = pd.read_csv(csv_files[-1])
-    # Remove duplicate columns
-    df = df.loc[:, ~df.columns.duplicated()]
-    df.columns = [c.strip() for c in df.columns]
 
-    # Flexible column normalization for common naming differences
+    # Clean raw column names
+    df.columns = [str(c).strip() for c in df.columns]
+
+    # Normalize similar column names
     rename_map = {}
     for col in df.columns:
         lower = col.lower()
+
         if "gender" in lower:
             rename_map[col] = "Gender"
         elif "racket" in lower:
@@ -44,22 +44,38 @@ def load_data() -> pd.DataFrame:
 
     df = df.rename(columns=rename_map)
 
+    # Fix duplicate columns created by renaming
+    if df.columns.duplicated().any():
+        deduped = {}
+        for col in pd.unique(df.columns):
+            same_name = df.loc[:, df.columns == col]
+
+            if same_name.shape[1] == 1:
+                deduped[col] = same_name.iloc[:, 0]
+            else:
+                deduped[col] = same_name.bfill(axis=1).iloc[:, 0]
+
+        df = pd.DataFrame(deduped)
+
+    # Type cleanup
     if "Tension" in df.columns:
         df["Tension"] = pd.to_numeric(df["Tension"], errors="coerce")
 
     if "Date" in df.columns:
         df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
+    # Text cleanup
     for col in ["Gender", "Racket", "String", "Player"]:
         if col in df.columns:
-        # Handle duplicate columns safely
-            if isinstance(df[col], pd.DataFrame):
-                df[col] = df[col].iloc[:, 0]  # take first column
-        
-            df[col] = df[col].astype(str).str.strip()
+            series = df[col]
+
+            if isinstance(series, pd.DataFrame):
+                series = series.bfill(axis=1).iloc[:, 0]
+
+            df[col] = series.fillna("").astype(str).str.strip()
+            df.loc[df[col].isin(["", "nan", "None"]), col] = pd.NA
 
     return df
-
 
 def required_columns_present(df: pd.DataFrame, columns: list[str]) -> bool:
     return all(col in df.columns for col in columns)
