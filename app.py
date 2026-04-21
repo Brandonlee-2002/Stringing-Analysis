@@ -21,6 +21,8 @@ def load_data() -> pd.DataFrame:
         return pd.DataFrame()
 
     df = pd.read_csv(csv_files[-1])
+    # Remove duplicate columns
+    df = df.loc[:, ~df.columns.duplicated()]
     df.columns = [c.strip() for c in df.columns]
 
     # Flexible column normalization for common naming differences
