@@ -50,7 +50,6 @@ Stringing-Analysis/
 ├── requirements.txt
 ├── data/
 │   └── stringing_data.csv
-├── images/
 └── README.md
 ```
 
