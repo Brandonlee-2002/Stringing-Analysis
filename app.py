@@ -235,10 +235,10 @@ with trends_tab:
         trend_df = (
             filtered_df.dropna(subset=["Date", "Tension"])
             .sort_values("Date")
-            .groupby(pd.Grouper(key="Date", freq="M"))["Tension"]
+            .groupby(pd.Grouper(key="Date", freq="ME"))["Tension"]
             .mean()
             .reset_index()
-        )
+)
         if not trend_df.empty:
             fig_trend = px.line(
                 trend_df,
