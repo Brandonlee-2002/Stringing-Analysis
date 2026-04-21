@@ -74,6 +74,13 @@ def load_data() -> pd.DataFrame:
 
             df[col] = series.fillna("").astype(str).str.strip()
             df.loc[df[col].isin(["", "nan", "None"]), col] = pd.NA
+    
+    # Create anonymized Player IDs
+    if "Player" in df.columns:
+        df["Player_ID"] = "P" + (df["Player"].astype("category").cat.codes + 1).astype(str)
+
+         # Remove real names for privacy
+        df = df.drop(columns=["Player"])
 
     return df
 
