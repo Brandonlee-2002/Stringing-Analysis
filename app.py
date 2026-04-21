@@ -130,7 +130,7 @@ if filtered_df.empty:
 # Top metrics
 col1, col2, col3, col4 = st.columns(4)
 with col1:
-    metric_card("Total Jobs", f"{len(filtered_df):,}")
+    metric_card("Total Stringing Jobs", f"{len(filtered_df):,}")
 with col2:
     if "Tension" in filtered_df.columns:
         metric_card("Average Tension", f"{filtered_df['Tension'].mean():.2f} lbs")
