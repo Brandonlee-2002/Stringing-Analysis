@@ -325,13 +325,19 @@ with outliers_tab:
             outlier_df,
             x="IsOutlier",
             y="Tension",
-            hover_data=[c for c in ["Player", "Gender", "Racket", "String"] if c in outlier_df.columns],
+            hover_data=[c for c in ["Player_ID", "Gender", "Racket", "String"] if c in outlier_df.columns],
             title="IQR-Based Tension Outliers",
         )
         st.plotly_chart(fig_outliers, use_container_width=True)
 
         st.subheader("Outlier Rows")
-        st.dataframe(outlier_df[outlier_df["IsOutlier"]], use_container_width=True)
+        outlier_display = outlier_df[outlier_df["IsOutlier"]].copy()
+
+        cols_to_remove = [col for col in ["Player", "Notes"] if col in outlier_display.columns]
+        if cols_to_remove:
+            outlier_display = outlier_display.drop(columns=cols_to_remove)
+
+        st.dataframe(outlier_display, use_container_width=True)
     else:
         st.info("Tension column not found.")
 
