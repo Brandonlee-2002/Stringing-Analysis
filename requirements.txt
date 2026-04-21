@@ -1,5 +1,8 @@
-pandas
 jupyterlab
 matplotlib.pyplot
 seaborn
 tabulate
+streamlit
+pandas
+plotly
+numpy
