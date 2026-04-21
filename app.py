@@ -13,6 +13,7 @@ st.set_page_config(
 
 @st.cache_data
 def load_data() -> pd.DataFrame:
+    """Load the most likely CSV from the data folder."""
     data_dir = Path("data")
     csv_files = sorted(data_dir.glob("*.csv"))
 
@@ -20,15 +21,12 @@ def load_data() -> pd.DataFrame:
         return pd.DataFrame()
 
     df = pd.read_csv(csv_files[-1])
-
-    # Clean raw column names
     df.columns = [str(c).strip() for c in df.columns]
 
-    # Normalize similar column names
+    # Flexible column normalization for common naming differences
     rename_map = {}
     for col in df.columns:
         lower = col.lower()
-
         if "gender" in lower:
             rename_map[col] = "Gender"
         elif "racket" in lower:
@@ -44,45 +42,33 @@ def load_data() -> pd.DataFrame:
 
     df = df.rename(columns=rename_map)
 
-    # Fix duplicate columns created by renaming
+    # If renaming created duplicate columns, keep the first non-null value across them.
     if df.columns.duplicated().any():
         deduped = {}
         for col in pd.unique(df.columns):
             same_name = df.loc[:, df.columns == col]
-
             if same_name.shape[1] == 1:
                 deduped[col] = same_name.iloc[:, 0]
             else:
                 deduped[col] = same_name.bfill(axis=1).iloc[:, 0]
-
         df = pd.DataFrame(deduped)
 
-    # Type cleanup
     if "Tension" in df.columns:
         df["Tension"] = pd.to_numeric(df["Tension"], errors="coerce")
 
     if "Date" in df.columns:
         df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
 
-    # Text cleanup
     for col in ["Gender", "Racket", "String", "Player"]:
         if col in df.columns:
             series = df[col]
-
             if isinstance(series, pd.DataFrame):
                 series = series.bfill(axis=1).iloc[:, 0]
-
             df[col] = series.fillna("").astype(str).str.strip()
             df.loc[df[col].isin(["", "nan", "None"]), col] = pd.NA
-    
-    # Create anonymized Player IDs
-    if "Player" in df.columns:
-        df["Player_ID"] = "P" + (df["Player"].astype("category").cat.codes + 1).astype(str)
-
-         # Remove real names for privacy
-        df = df.drop(columns=["Player"])
 
     return df
+
 
 def required_columns_present(df: pd.DataFrame, columns: list[str]) -> bool:
     return all(col in df.columns for col in columns)
@@ -242,10 +228,10 @@ with trends_tab:
         trend_df = (
             filtered_df.dropna(subset=["Date", "Tension"])
             .sort_values("Date")
-            .groupby(pd.Grouper(key="Date", freq="ME"))["Tension"]
+            .groupby(pd.Grouper(key="Date", freq="M"))["Tension"]
             .mean()
             .reset_index()
-)
+        )
         if not trend_df.empty:
             fig_trend = px.line(
                 trend_df,
@@ -351,9 +337,22 @@ with outliers_tab:
 
 with data_tab:
     st.subheader("Filtered Dataset")
-    st.dataframe(filtered_df, use_container_width=True)
 
-    csv = filtered_df.to_csv(index=False).encode("utf-8")
+    # Remove sensitive columns for privacy if they exist
+    display_df = filtered_df.copy()
+
+    cols_to_remove = []
+    if "Player" in display_df.columns:
+        cols_to_remove.append("Player")
+    if "Notes" in display_df.columns:
+        cols_to_remove.append("Notes")
+
+    if cols_to_remove:
+        display_df = display_df.drop(columns=cols_to_remove)
+
+    st.dataframe(display_df, use_container_width=True)
+
+    csv = display_df.to_csv(index=False).encode("utf-8")
     st.download_button(
         label="Download filtered data as CSV",
         data=csv,
