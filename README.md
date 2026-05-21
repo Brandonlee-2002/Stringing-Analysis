@@ -2,7 +2,7 @@
 
 ## 🚀 Live App
 
-[View the Streamlit Dashboard](https://your-app-name.streamlit.app)
+[View the Streamlit Dashboard](https://brandon-lee-stringing-analysis.streamlit.app/)
 
 ---
 
