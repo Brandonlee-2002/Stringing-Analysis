@@ -2,8 +2,7 @@
 
 ## 🚀 Live App
 
-[View the Streamlit Dashboard](https://brandon-lee-stringing-analysis.streamlit.app/)
-
+st.markdown('[View the Streamlit Dashboard](https://brandon-lee-stringing-analysis.streamlit.app/) <span style="font-size:0.8em">(opens in new tab)</span>', unsafe_allow_html=True)   
 ---
 
 ## 📌 Overview
