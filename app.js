@@ -1,6 +1,7 @@
 const DATA_URL = "./data/stringing_data.csv";
 const CHART_COLORS = ["#176c51", "#d46d56", "#92aa42", "#486c88", "#c69a49", "#6d8878", "#a86a7d", "#7b8c36"];
 const PRIVATE_COLUMNS = new Set(["name", "player", "notes"]);
+const RECORD_FIELDS = ["Date", "Player", "Player_ID", "Racket", "String", "Tension", "Gender"];
 const charts = new Map();
 let allRows = [];
 let visibleColumns = [];
@@ -10,7 +11,7 @@ const cleanText = (value) => value == null ? "" : String(value).trim();
 
 function normalizeCell(value) {
   const text = cleanText(value).toLowerCase();
-  if (!text || text === "na" || text === "#n/a" || text === "nan" || text === "null") {
+  if (["", "na", "n/a", "#na", "#n/a", "nan", "null", "undefined"].includes(text)) {
     return "";
   }
   return cleanText(value);
@@ -67,7 +68,7 @@ function normalizeRows(rawRows) {
     row.Date = parseDate(row.Date);
     ["Gender", "Racket", "String", "Player_ID"].forEach((key) => { row[key] = normalizeCell(row[key]); });
     return row;
-  }).filter((row) => Object.values(row).some((value) => hasMeaningfulValue(value)));
+  }).filter((row) => RECORD_FIELDS.some((field) => hasMeaningfulValue(row[field])));
 }
 
 function parseDate(value) {
