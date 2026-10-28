@@ -8,6 +8,21 @@ let visibleColumns = [];
 const byId = (id) => document.getElementById(id);
 const cleanText = (value) => value == null ? "" : String(value).trim();
 
+function normalizeCell(value) {
+  const text = cleanText(value).toLowerCase();
+  if (!text || text === "na" || text === "#n/a" || text === "nan" || text === "null") {
+    return "";
+  }
+  return cleanText(value);
+}
+
+function hasMeaningfulValue(value) {
+  if (value == null) return false;
+  if (typeof value === "number") return Number.isFinite(value);
+  const text = normalizeCell(value);
+  return text !== "";
+}
+
 function normalizeHeader(value) {
   const text = cleanText(value).toLowerCase().replace(/[^a-z0-9]/g, "");
   if (text.includes("gender")) return "Gender";
@@ -37,12 +52,22 @@ function normalizeRows(rawRows) {
 
   return rawRows.slice(1).map((values) => {
     const row = {};
-    uniqueHeaders.forEach((header, index) => { row[header] = values[index] ?? ""; });
-    row.Tension = row.Tension === "" ? null : Number(row.Tension);
+    uniqueHeaders.forEach((header, index) => {
+      const rawValue = values[index] ?? "";
+      row[header] = normalizeCell(rawValue);
+    });
+
+    if (row.Tension !== "") {
+      const parsedTension = Number(row.Tension);
+      row.Tension = Number.isFinite(parsedTension) ? parsedTension : null;
+    } else {
+      row.Tension = null;
+    }
+
     row.Date = parseDate(row.Date);
-    ["Gender", "Racket", "String", "Player_ID"].forEach((key) => { row[key] = cleanText(row[key]); });
+    ["Gender", "Racket", "String", "Player_ID"].forEach((key) => { row[key] = normalizeCell(row[key]); });
     return row;
-  }).filter((row) => Object.values(row).some((value) => value !== "" && value != null));
+  }).filter((row) => Object.values(row).some((value) => hasMeaningfulValue(value)));
 }
 
 function parseDate(value) {
