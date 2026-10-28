@@ -2,8 +2,7 @@
 
 ## 🚀 Live App
 
-The dashboard is deployed with GitHub Pages at:
-`https://<your-github-username>.github.io/Stringing-Analysis/`
+[View the GitHub Pages dashboard](https://Brandonlee-2002.github.io/Stringing-Analysis/)
 
 ---
 
