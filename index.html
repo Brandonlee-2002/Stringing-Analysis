@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f5f0">
+    <meta name="description" content="Explore badminton racket, string, and tension trends from stringing records.">
+    <title>Stringing Analysis | Court Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Court Notes home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>COURT NOTES <small>/ STRINGING LAB</small></span>
+        </a>
+        <div class="data-status" id="data-status" role="status"><span class="status-dot"></span> Loading workbook</div>
+      </header>
+
+      <main>
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow">EQUIPMENT INTELLIGENCE <span>·</span> BADMINTON</p>
+            <h1>Stringing <em>analysis</em></h1>
+            <p class="intro">A clear view of the choices behind every restring.</p>
+          </div>
+          <p class="updated-label"><span class="live-mark"></span> LIVE DATASET<br><span id="record-count-label">Preparing records</span></p>
+        </section>
+
+        <section class="filter-bar" aria-label="Dashboard filters">
+          <div class="filter-title"><span class="filter-glyph" aria-hidden="true">≡</span> FILTER</div>
+          <label>Gender<select id="filter-gender"><option value="">All genders</option></select></label>
+          <label>Racket<select id="filter-racket"><option value="">All rackets</option></select></label>
+          <label>String<select id="filter-string"><option value="">All strings</option></select></label>
+          <button class="reset-button" id="reset-filters" type="button" title="Clear filters">Reset <span aria-hidden="true">↺</span></button>
+        </section>
+
+        <section class="metric-grid" aria-label="Summary metrics">
+          <article class="metric"><p>STRINGING JOBS</p><strong id="metric-jobs">—</strong><span>in current selection</span></article>
+          <article class="metric metric-accent"><p>AVERAGE TENSION</p><strong id="metric-tension">—</strong><span>pounds <i id="metric-tension-delta"></i></span></article>
+          <article class="metric"><p>TOP RACKET</p><strong class="metric-text" id="metric-racket">—</strong><span>most selected model</span></article>
+          <article class="metric"><p>TOP STRING</p><strong class="metric-text" id="metric-string">—</strong><span>most selected string</span></article>
+        </section>
+
+        <nav class="tabs" aria-label="Dashboard views" role="tablist">
+          <button class="tab is-active" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview">Overview</button>
+          <button class="tab" id="tab-trends" role="tab" aria-selected="false" aria-controls="panel-trends">Trends</button>
+          <button class="tab" id="tab-comparisons" role="tab" aria-selected="false" aria-controls="panel-comparisons">Comparisons</button>
+          <button class="tab" id="tab-outliers" role="tab" aria-selected="false" aria-controls="panel-outliers">Outliers <span id="outlier-badge" class="tab-count">—</span></button>
+          <button class="tab" id="tab-data" role="tab" aria-selected="false" aria-controls="panel-data">Data table</button>
+        </nav>
+
+        <div id="empty-state" class="empty-state" hidden></div>
+        <section class="tab-panel is-active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+          <div class="chart-grid overview-grid">
+            <article class="chart-panel"><div class="panel-heading"><div><p class="eyebrow">01 / EQUIPMENT</p><h2>Racket preference</h2></div><span class="panel-note">TOP 10</span></div><div class="chart-wrap"><canvas id="chart-rackets" aria-label="Most popular rackets"></canvas></div></article>
+            <article class="chart-panel"><div class="panel-heading"><div><p class="eyebrow">02 / MATERIAL</p><h2>String preference</h2></div><span class="panel-note">TOP 10</span></div><div class="chart-wrap"><canvas id="chart-strings" aria-label="Most popular strings"></canvas></div></article>
+          </div>
+          <div class="chart-grid lower-grid">
+            <article class="chart-panel"><div class="panel-heading"><div><p class="eyebrow">03 / TENSION</p><h2>Distribution</h2></div><span class="panel-note">POUNDS</span></div><div class="chart-wrap chart-wrap-short"><canvas id="chart-distribution" aria-label="Tension distribution"></canvas></div></article>
+            <article class="insight-panel"><p class="eyebrow">AT A GLANCE</p><h2>Selection notes</h2><div id="insights" class="insight-list"></div></article>
+          </div>
+        </section>
+
+        <section class="tab-panel" id="panel-trends" role="tabpanel" aria-labelledby="tab-trends" hidden>
+          <div class="chart-grid"><article class="chart-panel"><div class="panel-heading"><div><p class="eyebrow">04 / OVER TIME</p><h2>Average tension by month</h2></div><span class="panel-note">POUNDS</span></div><div class="chart-wrap chart-wrap-tall"><canvas id="chart-trends" aria-label="Average tension over time"></canvas></div><p class="panel-footnote" id="trend-note"></p></article>
+          <article class="chart-panel"><div class="panel-heading"><div><p class="eyebrow">05 / EQUIPMENT</p><h2>Tension by racket</h2></div><span class="panel-note">TOP 15</span></div><div class="chart-wrap chart-wrap-tall"><canvas id="chart-racket-tension" aria-label="Average tension by racket"></canvas></div></article></div>
+        </section>
+
+        <section class="tab-panel" id="panel-comparisons" role="tabpanel" aria-labelledby="tab-comparisons" hidden>
+          <div class="chart-grid"><article class="chart-panel"><div class="panel-heading"><div><p class="eyebrow">06 / PLAYER GROUPS</p><h2>Tension by gender</h2></div><span class="panel-note">POUNDS</span></div><div class="chart-wrap chart-wrap-tall"><canvas id="chart-gender-tension" aria-label="Tension by gender"></canvas></div></article>
+          <article class="chart-panel"><div class="panel-heading"><div><p class="eyebrow">07 / PLAYER GROUPS</p><h2>Racket choices</h2></div><span class="panel-note">TOP 8</span></div><div class="chart-wrap chart-wrap-tall"><canvas id="chart-gender-rackets" aria-label="Racket preference by gender"></canvas></div></article></div>
+        </section>
+
+        <section class="tab-panel" id="panel-outliers" role="tabpanel" aria-labelledby="tab-outliers" hidden>
+          <article class="chart-panel"><div class="panel-heading"><div><p class="eyebrow">08 / QUALITY CHECK</p><h2>Tension outside the usual range</h2></div><span class="panel-note">1.5 × IQR</span></div><div class="chart-wrap chart-wrap-short"><canvas id="chart-outliers" aria-label="Tension outliers"></canvas></div><p class="panel-footnote" id="outlier-summary"></p></article>
+          <article class="table-panel"><div class="panel-heading"><div><p class="eyebrow">FLAGGED RECORDS</p><h2>Review outliers</h2></div></div><div class="table-scroll"><table id="outlier-table"></table></div></article>
+        </section>
+
+        <section class="tab-panel" id="panel-data" role="tabpanel" aria-labelledby="tab-data" hidden>
+          <article class="table-panel"><div class="panel-heading table-heading"><div><p class="eyebrow">FILTERED RECORDS</p><h2>Stringing log</h2></div><button class="download-button" id="download-csv" type="button"><span aria-hidden="true">↓</span> Download CSV</button></div><div class="table-scroll"><table id="data-table"></table></div><div class="table-footer" id="table-footer"></div></article>
+        </section>
+      </main>
+      <footer><span>COURT NOTES <span class="footer-sep">/</span> EQUIPMENT DATA</span><span>Names and internal notes are excluded from dashboard views and exports.</span></footer>
+    </div>
+    <noscript>This dashboard requires JavaScript to read and analyze the workbook.</noscript>
+  </body>
+</html>

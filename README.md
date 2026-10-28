@@ -2,85 +2,98 @@
 
 ## 🚀 Live App
 
-[View the Streamlit Dashboard ↗](https://brandon-lee-stringing-analysis.streamlit.app/)
+The dashboard is deployed with GitHub Pages at:
+`https://<your-github-username>.github.io/Stringing-Analysis/`
+
 ---
 
 ## 📌 Overview
 
-This project analyzes badminton stringing data to uncover trends in racket usage, string preferences, and tension patterns. It transforms raw stringing logs into an interactive dashboard for data-driven decision-making.
+This project analyzes badminton stringing data to uncover trends in racket usage, string preferences, and tension patterns. It turns raw stringing logs into an interactive dashboard that runs entirely in the browser.
 
 ---
 
 ## 🎯 Key Features
 
-* 📊 Interactive Streamlit dashboard
+* 📊 Interactive browser-based dashboard hosted on GitHub Pages
 * 🎾 Racket and string popularity analysis
 * 📈 Tension distribution and trends over time
 * 👥 Gender-based comparisons
-* 🚨 Outlier detection using IQR
-* 🔍 Dynamic filtering (racket, string, gender)
-* 🔐 Privacy-safe data using anonymized Player IDs
+* 🚨 Outlier detection using the IQR method
+* 🔍 Dynamic filtering by gender, racket, and string
+* 🔐 Privacy-safe data with names and internal notes excluded from the UI and downloads
 
 ---
 
 ## 🧠 Insights Generated
 
-* Identification of most popular rackets and strings
+* Identification of the most popular rackets and strings
 * Average and median string tension patterns
 * Differences in tension preferences across player groups
-* Detection of extreme stringing behaviors (outliers)
+* Detection of extreme stringing behaviors and outliers
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Python**
-* **Pandas** (data processing)
-* **Plotly** (visualizations)
-* **Streamlit** (dashboard UI)
+* **HTML, CSS, and JavaScript**
+* **SheetJS** for reading the workbook in-browser
+* **Chart.js** for interactive visualizations
+* **GitHub Pages + GitHub Actions** for static hosting
 
 ---
 
 ## 📂 Project Structure
 
-```
+```text
 Stringing-Analysis/
-├── app.py
-├── requirements.txt
+├── index.html
+├── app.js
+├── styles.css
+├── .github/workflows/deploy-pages.yml
 ├── data/
 │   └── stringing_data.csv
-└── README.md
+├── README.md
+├── app.py
+├── requirements.txt
+├── runtime.txt
+└── scripts/
+    └── data_analysis.py
 ```
 
 ---
 
 ## 🔒 Data Privacy
 
-* Player names are removed and replaced with anonymized `Player_ID`
-* Internal notes are excluded from all visualizations and exports
-* Designed with real-world data privacy considerations in mind
+* Player names are removed from dashboard views and exports
+* Internal notes are excluded from charts and the filtered CSV export
+* The app is designed to avoid exposing sensitive customer data
 
 ---
 
 ## ⚙️ How to Run Locally
 
+Serve the repository root with any local HTTP server, then open the app in a browser.
+
+```bash
+python3 -m http.server 8000
 ```
-pip install -r requirements.txt
-streamlit run app.py
-```
+
+Then visit:
+`http://localhost:8000/`
+
+> The workbook is fetched by the browser, so opening `index.html` directly from disk is not supported.
 
 ---
 
-## 🌐 Deployment
+## 🌐 Deployment on GitHub Pages
 
-This app is deployed using **Streamlit Community Cloud**.
+1. Push the repository to GitHub on the `main` branch.
+2. Open the repository settings and select **Pages**.
+3. Choose **GitHub Actions** as the deployment source.
+4. The workflow in `.github/workflows/deploy-pages.yml` publishes the site automatically.
 
-To deploy your own version:
-
-1. Push code to GitHub
-2. Connect repo on Streamlit Cloud
-3. Select `app.py` as entry point
-4. Deploy 🚀
+The current `data/stringing_data.csv` file is actually an Excel workbook saved with a `.csv` extension. The browser reads the `String Log` worksheet directly with SheetJS, which avoids the Unicode decoding error from trying to parse the workbook as plain CSV text.
 
 ---
 
