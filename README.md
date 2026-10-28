@@ -1,6 +1,6 @@
 # 🏸 Badminton Stringing Analysis Dashboard
 
-## 🚀 Live App (testing)
+## 🚀 Live App
 
 [View the GitHub Pages dashboard](https://Brandonlee-2002.github.io/Stringing-Analysis/)
 
