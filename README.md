@@ -49,15 +49,12 @@ Stringing-Analysis/
 ├── index.html
 ├── app.js
 ├── styles.css
-├── .github/workflows/deploy-pages.yml
 ├── data/
 │   └── stringing_data.csv
 ├── README.md
-├── app.py
-├── requirements.txt
-├── runtime.txt
-└── scripts/
-    └── data_analysis.py
+└── .github/
+    └── workflows/
+        └── deploy-pages.yml
 ```
 
 ---
@@ -92,7 +89,7 @@ Then visit:
 3. Choose **GitHub Actions** as the deployment source.
 4. The workflow in `.github/workflows/deploy-pages.yml` publishes the site automatically.
 
-The current `data/stringing_data.csv` file is actually an Excel workbook saved with a `.csv` extension. The browser reads the `String Log` worksheet directly with SheetJS, which avoids the Unicode decoding error from trying to parse the workbook as plain CSV text.
+The current `data/stringing_data.csv` file is an Excel workbook saved with a `.csv` extension for compatibility with the existing dashboard URL. The browser reads the `String Log` worksheet directly with SheetJS.
 
 ---
 
@@ -100,7 +97,7 @@ The current `data/stringing_data.csv` file is actually an Excel workbook saved w
 
 * 🎯 Recommendation system for optimal string setup
 * 🤖 Machine learning model for tension prediction
-* 📊 Player-level analytics dashboard
+* 📊 Anonymized player-retention analytics
 * ⏱️ String durability tracking
 
 ---
