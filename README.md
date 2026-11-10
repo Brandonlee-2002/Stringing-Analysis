@@ -91,6 +91,30 @@ Then visit:
 
 The current `data/stringing_data.csv` file is an Excel workbook saved with a `.csv` extension for compatibility with the existing dashboard URL. The browser reads the `String Log` worksheet directly with SheetJS.
 
+## 🔁 Automatic Stringing-Log Pushes
+
+On macOS, the repository includes a `launchd` watcher that can commit and push changes to `data/stringing_data.csv` automatically. It only commits that file, requires the repository to be on the `main` branch, and leaves unrelated changes untouched.
+
+Install and enable it with:
+
+```bash
+./scripts/install-autopush.sh
+```
+
+View its log with:
+
+```bash
+tail -f .automation/autopush.log
+```
+
+Disable it with:
+
+```bash
+./scripts/uninstall-autopush.sh
+```
+
+The watcher uses your existing GitHub authentication. Configure SSH or GitHub CLI authentication before enabling it if `git push` is not already working from this repository.
+
 ---
 
 ## 💡 Future Improvements
