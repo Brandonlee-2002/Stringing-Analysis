@@ -10,7 +10,7 @@ DEST_PLIST="$DEST_DIR/$LABEL.plist"
 
 mkdir -p "$DEST_DIR"
 mkdir -p "$REPO_DIR/.automation"
-shasum -a 256 "$REPO_DIR/data/stringing_data.csv" | awk '{print $1}' > "$REPO_DIR/.automation/last-seen.sha256"
+shasum -a 256 "$REPO_DIR/data/private/stringing_data.csv" | awk '{print $1}' > "$REPO_DIR/.automation/last-seen.sha256"
 cp "$SOURCE_PLIST" "$DEST_PLIST"
 
 launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null || true

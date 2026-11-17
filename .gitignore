@@ -2,3 +2,4 @@
 .venv/
 .idea/
 .automation/
+data/private/

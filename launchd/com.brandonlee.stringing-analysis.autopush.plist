@@ -10,7 +10,7 @@
   </array>
   <key>WatchPaths</key>
   <array>
-    <string>/Users/brandonlee/Developer/GitHub/Stringing-Analysis/data/stringing_data.csv</string>
+    <string>/Users/brandonlee/Developer/GitHub/Stringing-Analysis/data/private/stringing_data.csv</string>
   </array>
   <key>ThrottleInterval</key>
   <integer>10</integer>

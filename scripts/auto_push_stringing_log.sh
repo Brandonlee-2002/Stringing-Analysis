@@ -7,6 +7,9 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 REPO_DIR="/Users/brandonlee/Developer/GitHub/Stringing-Analysis"
 TARGET_FILE="data/stringing_data.csv"
 TARGET_PATH="$REPO_DIR/$TARGET_FILE"
+SOURCE_FILE="data/private/stringing_data.csv"
+SOURCE_PATH="$REPO_DIR/$SOURCE_FILE"
+SANITIZER="$REPO_DIR/scripts/sanitize_stringing_log.rb"
 LOCK_DIR="/tmp/stringing-analysis-autopush.lock"
 LOG_DIR="$REPO_DIR/.automation"
 LOG_FILE="$LOG_DIR/autopush.log"
@@ -23,8 +26,8 @@ log() {
   print -r -- "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG_FILE"
 }
 
-if [[ ! -f "$TARGET_PATH" ]]; then
-  log "Skipped: $TARGET_FILE does not exist."
+if [[ ! -f "$SOURCE_PATH" ]]; then
+  log "Skipped: private source $SOURCE_FILE does not exist."
   exit 0
 fi
 
@@ -33,7 +36,7 @@ fi
 previous_signature=""
 stable_checks=0
 for attempt in {1..6}; do
-  current_signature="$(stat -f '%z:%m' "$TARGET_PATH")"
+  current_signature="$(stat -f '%z:%m' "$SOURCE_PATH")"
   if [[ "$current_signature" == "$previous_signature" ]]; then
     stable_checks=$((stable_checks + 1))
   else
@@ -46,12 +49,12 @@ for attempt in {1..6}; do
   sleep 2
 done
 
-if [[ ! -s "$TARGET_PATH" ]]; then
-  log "Skipped: $TARGET_FILE is empty."
+if [[ ! -s "$SOURCE_PATH" ]]; then
+  log "Skipped: private source $SOURCE_FILE is empty."
   exit 0
 fi
 
-current_hash="$(shasum -a 256 "$TARGET_PATH" | awk '{print $1}')"
+current_hash="$(shasum -a 256 "$SOURCE_PATH" | awk '{print $1}')"
 if [[ ! -f "$SIGNATURE_FILE" ]]; then
   print -r -- "$current_hash" > "$SIGNATURE_FILE"
   log "Baseline recorded for $TARGET_FILE; no commit was created."
@@ -64,6 +67,8 @@ if [[ "$current_hash" == "$last_hash" ]]; then
 fi
 
 cd "$REPO_DIR"
+
+ruby "$SANITIZER" "$SOURCE_PATH" "$TARGET_PATH"
 
 if [[ "$(git branch --show-current)" != "main" ]]; then
   log "Skipped: current branch is not main."
@@ -85,7 +90,7 @@ git commit --only -m "Update stringing log" -- "$TARGET_FILE" >> "$LOG_FILE" 2>&
 
 if git push origin main >> "$LOG_FILE" 2>&1; then
   print -r -- "$current_hash" > "$SIGNATURE_FILE"
-  log "Pushed updated $TARGET_FILE to origin/main."
+  log "Pushed sanitized $TARGET_FILE generated from private source."
 else
   log "Push failed. The commit is local and was not overwritten."
   exit 1

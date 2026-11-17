@@ -89,11 +89,11 @@ Then visit:
 3. Choose **GitHub Actions** as the deployment source.
 4. The workflow in `.github/workflows/deploy-pages.yml` publishes the site automatically.
 
-The current `data/stringing_data.csv` file is an Excel workbook saved with a `.csv` extension for compatibility with the existing dashboard URL. The browser reads the `String Log` worksheet directly with SheetJS.
+The dashboard publishes only the sanitized `data/stringing_data.csv` file. The private source workbook belongs at `data/private/stringing_data.csv`; that directory is ignored by Git and is never uploaded to GitHub. The public file contains no names, name IDs, or internal notes.
 
 ## 🔁 Automatic Stringing-Log Pushes
 
-On macOS, the repository includes a `launchd` watcher that can commit and push changes to `data/stringing_data.csv` automatically. It only commits that file, requires the repository to be on the `main` branch, and leaves unrelated changes untouched.
+On macOS, the repository includes a `launchd` watcher that reads the private source, regenerates the sanitized public file, and commits only `data/stringing_data.csv` automatically. It requires the repository to be on the `main` branch and leaves unrelated changes untouched.
 
 Install and enable it with:
 
